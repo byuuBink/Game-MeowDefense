@@ -1,0 +1,30 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using UnityEngine;
+
+public class ChronoWeapon : MonoBehaviour
+{
+
+    public Transform firePoint;
+    public GameObject bulletPrefab;
+    public float fireRate;
+    float nextFire;
+
+    [SerializeField] private AudioSource shootSoundEffect;
+
+    private void Update()
+    {
+        Shoot();
+    }
+
+    private void Shoot()
+    {
+        if (Time.time > nextFire)
+        {
+            nextFire = Time.time + fireRate;
+            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            shootSoundEffect.Play();
+        }
+    }
+}
